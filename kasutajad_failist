@@ -1,0 +1,19 @@
+#!/bin/bash
+# skript algab
+#
+# kasutaja lisamise skript
+if [ $# -ne 1 ]; then
+    echo "Kasutusjuhend: $0 failinimi"
+else
+failinimi=$1
+  if [ -f $failinimi -a -r $failinimi ]; then
+    echo "fail on olemas!"
+    for nimi in $(cat $failinimi)
+    do
+	sh lisakasutaja $nimi 
+    done
+   else
+    echo "Probleem failiga $failinimi"
+  fi
+# skript lõppeb
+fi
