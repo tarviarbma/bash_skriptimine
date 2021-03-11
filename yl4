@@ -1,20 +1,23 @@
-#!/bin/bash
+ #!/bin/bash
 # skript algab
 #
 # kasutajad vasatava parooliga
-if [ $# -ne 1 ]; then
-    echo "Kasutusjuhend: $0 failinimi"
+if [ $# -ne 2 ]; then
+    echo "Kasutusjuhend: $0 kasutajad paroolid"
 else
-failinimi=$1
-  if [ -f $failinimi -a -r $failinimi ]; then
-    echo "fail on olemas!"
-    for nimi in $(cat $failinimi)
+  kasutajad=$1
+  paroolid=$2
+  if [ -f $kasutajad -a -r $kasutajad ] && [ -f $paroolid -a -r $paroolid ]; then
+    echo "paistab töötavat!"
+    for rida in $(paste -d: $kasutajad $paroolid)
     do
         kasutajanimi=$(echo "$rida" | cut -f1 -d:)
         sh lisakasutaja $kasutajanimi
-        echo "$rida" | chpasswd 123
-    done
+        echo "$rida" | chpasswd
+      done
   else
     echo "Probleem failiga $failinimi"
   fi
+#END
+fi
 
