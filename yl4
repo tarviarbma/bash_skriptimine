@@ -1,7 +1,7 @@
 #!/bin/bash
 # skript algab
 #
-# kasutaja lisamise skript
+# kasutajad vasatava parooliga
 if [ $# -ne 1 ]; then
     echo "Kasutusjuhend: $0 failinimi"
 else
@@ -10,12 +10,11 @@ failinimi=$1
     echo "fail on olemas!"
     for nimi in $(cat $failinimi)
     do
-	kasutajanimi=$(echo "$rida" | cut -f1 -d:)
-	sh lisakasutaja $kasutajanimi
-	echo "$rida" | chpasswd 123
+        kasutajanimi=$(echo "$rida" | cut -f1 -d:)
+        sh lisakasutaja $kasutajanimi
+        echo "$rida" | chpasswd 123
     done
   else
     echo "Probleem failiga $failinimi"
   fi
-# skript lõppeb
-fi
+
