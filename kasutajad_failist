@@ -5,14 +5,14 @@
 if [ $# -ne 1 ]; then
     echo "Kasutusjuhend: $0 failinimi"
 else
-failinimi=$1
+  failinimi=$1
   if [ -f $failinimi -a -r $failinimi ]; then
     echo "fail on olemas!"
-    for nimi in $(cat $failinimi)
+    for rida in $(cat $failinimi)
     do
 	kasutajanimi=$(echo "$rida" | cut -f1 -d:)
 	sh lisakasutaja $kasutajanimi
-	echo "$rida" | chpasswd 123
+	echo "$rida" | chpasswd
     done
   else
     echo "Probleem failiga $failinimi"
