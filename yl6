@@ -1,0 +1,29 @@
+ZS#!/bin/bash
+# skripti algus
+# kasutaja lisamine genereeritud parooliga, kontrollides et kasutaja oleks root
+kasroot=$(whoami)
+if [ $kasroot = "root" ]; then
+	if [ $# -ne 1 ]; then
+        echo "Kasutusjuhend: $0 failinimi"
+	else
+ 		failinimi=$1
+  		if [ -f $failinimi -a -r $failinimi ]; then
+   		echo "fail on olemas!"
+    		for rida in $(paste -d: $failinimi $paroolid)
+    		do
+        		kasutajanimi=$(echo "$rida" | cut -f1 -d:)
+        		sh lisakasutaja $kasutajanimi
+        		# genereerimise käsk
+        		parool=$(pwgen -s 8 1)
+        		echo "$kasutajanimi:$parool" | chpasswd
+        		echo "$kasutajanimi - $parool" >> kasutajadparoolidega
+    		done
+ 	 else
+    	 echo "Probleem failiga $failinimi"
+ 	 fi
+	 #kontrolli lõpp
+	 fi
+else
+	 echo "Sa pead olema root kasutaja, et skripti käivitada"
+# skript lõppeb
+fi
